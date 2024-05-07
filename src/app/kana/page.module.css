@@ -1,7 +1,30 @@
+.kana__tab_wrap {
+    margin-top: 48px;
+    height: 40px;
+    display: flex;
+}
+.kana__tab_active {
+    color: '#33333';
+    border: 1px solid azure;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    /* background-color: azure; */
+    font-weight: 800;
+}
+.kana__tab_inactive {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #EEEEEE;
+}
 .kana__wrap {
-    min-height: 100vh;
-    margin-top: 50px;
-    padding: 68px 20px 60px 20px;
+    padding: 10px 20px 80px 20px;
+    /* background-color: azure; */
 }
 
 .kana__all_wrap {

@@ -1,14 +1,41 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './page.module.css'
 import {useRouter} from "next/navigation";
 import HomeButton from "@/app/components/HomeButton/homeButton";
-function Page() {
 
+function Page() {
+    const [viewExtra, setViewExtra] = useState(false);
+    
     return (
+        <>
+        <HomeButton/>
+        <div className={styles.kana__tab_wrap}>
+            <div onClick={() => setViewExtra(false)} className={!viewExtra ? styles.kana__tab_active : styles.kana__tab_inactive}>
+                오십음도
+            </div>
+            <div onClick={() => setViewExtra(true)} className={viewExtra ? styles.kana__tab_active : styles.kana__tab_inactive}>
+                탁음 ・ 요음
+            </div>
+        </div>
+        { viewExtra ? 
         <div>
-            <HomeButton/>
+            <div className={styles.kana__all_wrap}>
+                <div className={styles.kana__all_word__extra}>
+                    <div className={'bold'}>きゃ ・ キャ</div>
+                    <div className={'fs-20 ft_999 mg-top-5'}>kya</div>
+                </div>
+                <div className={styles.kana__all_word__extra}>
+                    <div className={'bold'}>きゅ ・ キュ</div>
+                    <div className={'fs-20 ft_999 mg-top-5'}>kyu</div>
+                </div>
+                <div className={styles.kana__all_word__extra}>
+                    <div className={'bold'}>きょ ・ キョ</div>
+                    <div className={'fs-20 ft_999 mg-top-5'}>kyo</div>
+                </div>
+            </div>
+        </div> :
         <div className={styles.kana__wrap}>
             <div className={styles.kana__all_wrap}>
                 <div className={styles.kana__all_word}>
@@ -52,20 +79,6 @@ function Page() {
                 <div className={styles.kana__all_word}>
                     <div className={'bold'}>こ ・ コ</div>
                     <div className={'fs-20 ft_999 mg-top-5'}>ko</div>
-                </div>
-            </div>
-            <div className={styles.kana__all_wrap}>
-                <div className={styles.kana__all_word__extra}>
-                    <div className={'bold'}>きゃ ・ キャ</div>
-                    <div className={'fs-20 ft_999 mg-top-5'}>kya</div>
-                </div>
-                <div className={styles.kana__all_word__extra}>
-                    <div className={'bold'}>きゅ ・ キュ</div>
-                    <div className={'fs-20 ft_999 mg-top-5'}>kyu</div>
-                </div>
-                <div className={styles.kana__all_word__extra}>
-                    <div className={'bold'}>きょ ・ キョ</div>
-                    <div className={'fs-20 ft_999 mg-top-5'}>kyo</div>
                 </div>
             </div>
             <div className={styles.kana__all_wrap}>
@@ -228,8 +241,9 @@ function Page() {
                     <div className={'fs-20 ft_999 mg-top-5'}>tsu</div>
                 </div>
             </div>
-        </div>
-        </div>
+        </div> 
+        }
+        </>
     );
 }
 

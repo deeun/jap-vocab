@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 export default function Home() {
     const dispatch = useDispatch();
     const router = useRouter();
-    const setPage = (tab) => {
+    const setPage = (tab: string) => {
         router.push(`/${tab}`)
     }
 
