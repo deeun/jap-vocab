@@ -1,0 +1,39 @@
+.kana__wrap {
+    min-height: 100vh;
+    margin-top: 50px;
+    padding: 68px 20px 60px 20px;
+}
+
+.kana__all_wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.kana__all_word {
+    font-family: Pretendard;
+    font-size: 22px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F7F7F7;
+    border-radius: 20px;
+}
+.kana__all_word__extra {
+    font-family: Pretendard;
+    font-size: 22px;
+    width: 120px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #EEEEEE;
+    border-radius: 20px;
+}
+.kana__card {
+
+}

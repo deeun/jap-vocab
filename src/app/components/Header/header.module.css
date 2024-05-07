@@ -1,0 +1,14 @@
+.header__wrap {
+    width: 100%;
+    max-width: 480px;
+    position: fixed;
+    top: 0;
+    height: 48px;
+    color: white;
+}
+
+.header__title {
+    text-align: center;
+    font-family: EF_YOONY;
+    font-weight: 900;
+}

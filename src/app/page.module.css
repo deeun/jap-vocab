@@ -1,0 +1,79 @@
+.main__wrap {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 68px 20px;
+}
+.bg__one {
+    /*background-color: #FFE162;*/
+    background-color: rgba(255, 217, 61, 0.8);
+}
+.bg__two {
+    /*background-color: #378CE7;*/
+    background-color: rgba(77, 150, 255, 0.8);
+}
+.main__card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.main__card_word {
+    margin-top: 10px;
+    background-color: #F7F7F7;
+    padding: 20px;
+    border-radius: 10px;
+}
+.main__card_word__jp {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+.main__card_level {
+    background-color: #91C483;
+    color: white;
+    width: 40px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+
+/* CSS */
+.button_52 {
+    font-size: 16px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    padding: 13px 20px 13px;
+    outline: 0;
+    border: 1px solid black;
+    cursor: pointer;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button_52:after {
+    content: "";
+    background-color: #ffe54c;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 7px;
+    left: 7px;
+    transition: 0.2s;
+}
+
+.button_52:hover:after {
+    top: 0px;
+    left: 0px;
+}
