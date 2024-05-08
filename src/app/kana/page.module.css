@@ -1,18 +1,26 @@
 .kana__tab_wrap {
-    margin-top: 48px;
-    height: 40px;
+    height: 45px;
     display: flex;
+    background-color: #F7F7F7;
+}
+.kana__tab_gap {
+    background-color: #F7F7F7;
+    height: 10px;
+    width: 100%;
+    margin-top: 52px;
 }
 .kana__tab_active {
-    color: '#33333';
-    border: 1px solid azure;
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    /* background-color: azure; */
+    background-color: white;
     font-weight: 800;
+    border: 1px solid white;
+    border-top-left-radius: 200px;
+    border-top-right-radius: 200px;
+    padding-top: 5px;
 }
 .kana__tab_inactive {
     width: 50%;
@@ -20,30 +28,43 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: #EEEEEE;
+    background-color: #F7F7F7;
+    padding-top: 5px;
 }
 .kana__wrap {
-    padding: 10px 20px 80px 20px;
-    /* background-color: azure; */
+    padding: 10px 15px 80px 15px;
+    min-height: 100vh;
 }
 
 .kana__all_wrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 12px;
 }
 .kana__all_word {
     font-family: Pretendard;
     font-size: 22px;
-    width: 80px;
-    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #F7F7F7;
+    background-color: rgba(255, 254, 196, 0.4);
     border-radius: 20px;
+}
+.kana__all_word__bg_darker {
+    font-family: Pretendard;
+    font-size: 22px;
+    min-width: 80px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: rgba(255, 254, 196, 0.8);
 }
 .kana__all_word__extra {
     font-family: Pretendard;
@@ -54,9 +75,54 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #EEEEEE;
+    background-color: rgba(255, 254, 196, 0.4);
     border-radius: 20px;
 }
-.kana__card {
+.kana__all_word__gray {
+    font-size: 20px;
+    color: #999999;
+    margin-top: 5px;
+}
+.kana__category {
+    margin-top: 10px;
+    margin-left: 5px;
+    background-color: #CCF6C8;
+    /*background-color: rgb(255, 254, 196);*/
+    padding: 5px;
+    height: 32px;
+    max-width: 100px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+@media (max-width: 480px) {
+    .kana__all_word {
+        font-family: Pretendard;
+        font-size: 16px;
+        padding: 12px;
+        background-color: rgba(255, 254, 196, 0.8);
+        border-radius: 20px;
+        min-width: 50px;
+        min-height: 50px;
+    }
+    .kana__all_word__bg_darker {
+        font-family: Pretendard;
+        font-size: 16px;
+        padding: 12px;
+        background-color: rgba(255, 254, 196, 0.4);
+        border-radius: 20px;
+        min-width: 50px;
+        min-height: 50px;
+    }
+    .kana__all_word__extra {
+        font-size: 16px;
+        padding: 8px;
+    }
+    .kana__all_word__gray {
+        font-size: 16px;
+    }
 }

@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          <div style={{marginBottom: 48}}>
+          <div style={{marginBottom: 52}}>
             <Header />
           </div>
           <div style={{width: '100%'}}>
