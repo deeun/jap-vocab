@@ -15,8 +15,11 @@
 .main__card {
     margin-top: 20px;
     padding: 20px;
+    height: 70px;
     border-radius: 10px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 .main__card_word {

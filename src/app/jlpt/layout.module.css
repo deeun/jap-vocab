@@ -1,0 +1,5 @@
+.jlpt__layout_wrap {
+    margin-top: 52px;
+    min-height: calc(100vh - 52px);
+    padding: 20px 15px 80px 15px;
+}
