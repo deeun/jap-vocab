@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {axiosInstance, axiosPapago, POST} from "../plugins/axios";
+import {axiosInstance, axiosPapago} from "../plugins/axios";
 import axios from "axios";
+import { POST } from '@/app/api/route';
 
 // export interface Vocab {
 //     randomWord: [],
@@ -12,15 +13,13 @@ export const fetchRandomVocab = createAsyncThunk('vocab/fetch', async () => {
         let response
         await axiosInstance.get('https://jlpt-vocab-api.vercel.app/api/words/random')
             .then(async (res) => {
-                response = res.data
-                console.log('??', res.data)
-                const data = { text: [
-                        "The table is green. The chair is black."
-                    ], targetLang: 'KO'}
-
-                await axiosInstance.post('https://api.deepl.com/v2/translate', data).then((res2) => {
-                    console.log('ppp', res2)
-                })
+                response = res.data;
+                const data = { source: 'en', target: 'ko', text: 'hungry'}
+              
+                POST(data)
+                // const res2 = await fetch('/api/translate')
+                // console.log('res2', res2)
+    
                 return response.data;
             })
     } catch (e) {
