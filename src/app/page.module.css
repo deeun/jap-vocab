@@ -22,11 +22,21 @@
     align-items: center;
 }
 
+.main__card_word__empty {
+    margin-top: 10px;
+    background-color: #F7F7F7;
+    border-radius: 10px;
+    height: 201px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .main__card_word {
     margin-top: 10px;
     background-color: #F7F7F7;
     padding: 20px;
     border-radius: 10px;
+    height: 201px;
 }
 .main__card_word__jp {
     display: flex;

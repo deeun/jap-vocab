@@ -1,47 +1,62 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import {axiosInstance, axiosPapago} from "../plugins/axios";
 import axios from "axios";
-import { POST } from '@/app/api/route';
+import {ENG_KOR_TRANSLATE, POST} from '@/app/api/route';
 
 // export interface Vocab {
 //     randomWord: [],
 //     error: {}
 // }
 
-export const fetchRandomVocab = createAsyncThunk('vocab/fetch', async () => {
+export const fetchRandomVocab = createAsyncThunk('vocabRandom/fetch', async () => {
     try {
         let response
         await axiosInstance.get('https://jlpt-vocab-api.vercel.app/api/words/random')
             .then(async (res) => {
-                response = res.data;
-                const data = { source: 'en', target: 'ko', text: 'hungry'}
-              
-                POST(data)
-                // const res2 = await fetch('/api/translate')
-                // console.log('res2', res2)
-    
-                return response.data;
+                const response = res.data;
+                return response;
             })
+            .then(async (res) => {
+                const param = { source: 'en', target: 'ko', text: res.meaning }
+                const translate = await ENG_KOR_TRANSLATE(param);
+                res.translation = translate?.translatedText
+                response = res
+            })
+        return response
     } catch (e) {
         console.log('error', e)
     }
 })
-const fetchTranslateEng = createAsyncThunk('vocab/translate', async(text: string) => {
-    console.log('tt', text)
-    const param = { source: 'en', target: 'ko', text: text}
-    console.log(param, param)
+
+export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({level, page}) => {
     try {
-        const response = await axiosPapago.post('', {body: param})
-        console.log(response, 'papago')
+        let response
+        console.log({level, page})
+        await axiosInstance.get(`https://jlpt-vocab-api.vercel.app/api/words?offset=${page}&limit=20&level=${level}`)
+            .then(async (res) => {
+                return res.data;
+            })
+            .then(async (res) => {
+                for (const r of res.words) {
+                    const param = { source: 'en', target: 'ko', text: r.meaning }
+                    const translate = await ENG_KOR_TRANSLATE(param);
+                    r.translation = translate?.translatedText
+                }
+                return res
+            }).then((res) => {
+                response = res
+            })
+        return response
     } catch (e) {
-        console.log('PAPAGO ERROR ::', e)
+        console.log('error', e)
     }
 })
 
 const initialState = {
     randomWord: {},
+    levelWord: [],
+    levelWordTotal: 1,
     loading: false,
-    preLoading: true,
     error: {}
 }
 
@@ -53,15 +68,22 @@ export const vocabSlice = createSlice({
         builder
             .addCase(fetchRandomVocab.pending, (state, action) => {
                 state.loading = true
-                state.preLoading = true
             })
             .addCase(fetchRandomVocab.fulfilled, (state, action) => {
                 state.randomWord = action.payload
-                state.preLoading = false
                 state.loading = false
             })
             .addCase(fetchRandomVocab.rejected, (state, action) => {
                 state.error = action.error
+            })
+            .addCase(fetchVocabByLevel.pending, (state, action) => {
+                state.loading = true
+            })
+            .addCase(fetchVocabByLevel.fulfilled, (state, action) => {
+                console.log(action)
+                state.levelWord = action.payload.words
+                state.levelWordTotal = action.payload.total
+                state.loading = false
             })
     }
 })
