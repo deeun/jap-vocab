@@ -29,6 +29,7 @@ export const fetchRandomVocab = createAsyncThunk('vocabRandom/fetch', async () =
 })
 
 export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({level, page}) => {
+    if (level !== undefined) {
     try {
         let response
         console.log({level, page})
@@ -50,6 +51,7 @@ export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({le
     } catch (e) {
         console.log('error', e)
     }
+}
 })
 
 const initialState = {
@@ -80,7 +82,6 @@ export const vocabSlice = createSlice({
                 state.loading = true
             })
             .addCase(fetchVocabByLevel.fulfilled, (state, action) => {
-                console.log(action)
                 state.levelWord = action.payload.words
                 state.levelWordTotal = action.payload.total
                 state.loading = false
