@@ -10,6 +10,7 @@ export default function Home() {
     const dispatch = useDispatch();
     const randomWord = useSelector(state => state.vocabReducer.randomWord)
     const loading = useSelector(state => state.vocabReducer.loading)
+    const isError = useSelector(state => state.vocabReducer.isError)
     const router = useRouter();
     const setPage = (tab: string) => {
         router.push(`/${tab}`)
@@ -19,7 +20,8 @@ export default function Home() {
     useEffect(() => {
         setLevelShow(false);
         dispatch(fetchRandomVocab());
-    }, []);
+        console.log(isError, 'isError PAge TSX');
+    }, [isError]);
 
     return (
         <div className={styles.main__wrap}>
