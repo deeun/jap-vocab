@@ -1,0 +1,11 @@
+.warning {
+    width: 100%;
+    max-width: 480px;
+    height: calc(100vh - 50px);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin-top: 50px;
+}

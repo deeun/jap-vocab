@@ -7,6 +7,7 @@ import "./styles/flex.css";
 import "./styles/font.css";
 import ReduxProvider from "../../store/ReduxProvider";
 import Header from "@/app/components/Header/header";
+import LayoutWrapper from "@/app/layoutWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,11 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          <div style={{marginBottom: 52}}>
-            <Header />
-          </div>
           <div style={{width: '100%'}}>
-            {children}
+            <LayoutWrapper>
+              {children}
+            </LayoutWrapper>
           </div>
         </ReduxProvider>
       </body>
