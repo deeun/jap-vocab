@@ -1,9 +1,14 @@
 'use client'
 import React from 'react';
-import Loading from "@/app/components/Loading/loading";
-import Header from "@/app/components/Header/header";
 import {useSelector} from "react-redux";
-import Warning from "@/app/components/Warning/warning"
+import Warning from "@/components/Warning/warning";
+import Header from "@/components/Header/header";
+import Loading from "@/components/Loading/loading";
+import "./styles/globals.css";
+import "./styles/common.css";
+import "./styles/mg_pd.css";
+import "./styles/flex.css";
+import "./styles/font.css";
 
 function LayoutWrapper({children}: Readonly<{
     children: React.ReactNode;

@@ -3,7 +3,7 @@
 import React, {useState} from 'react';
 import styles from './page.module.css'
 import {useRouter} from "next/navigation";
-import HomeButton from "@/app/components/HomeButton/homeButton";
+import HomeButton from "@/components/HomeButton/homeButton";
 
 function Page() {
     const [viewExtra, setViewExtra] = useState(false);

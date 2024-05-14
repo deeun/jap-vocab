@@ -6,7 +6,6 @@ import "./styles/mg_pd.css";
 import "./styles/flex.css";
 import "./styles/font.css";
 import ReduxProvider from "../../store/ReduxProvider";
-import Header from "@/app/components/Header/header";
 import LayoutWrapper from "@/app/layoutWrapper";
 const inter = Inter({ subsets: ["latin"] });
 

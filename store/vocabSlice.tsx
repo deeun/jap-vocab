@@ -1,8 +1,9 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+// @ts-ignore
+
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {axiosInstance, axiosPapago} from "../plugins/axios";
 import axios from "axios";
 import {ENG_KOR_TRANSLATE} from '@/app/api/route';
-import {any, string} from "prop-types";
 import {useDispatch} from "react-redux";
 import {setError} from "./errorSlice";
 
@@ -34,28 +35,35 @@ export const fetchRandomVocab = createAsyncThunk('vocabRandom/fetch', async (arg
         return rejectWithValue(e);
     }
 })
-export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({level, page}, {rejectWithValue: rejectWithValue}) => {
+export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({level, page, onSuccess, onFail}, {rejectWithValue: rejectWithValue}) => {
     if (level !== undefined) {
         try {
             let response
             await axiosInstance.get(`https://jlpt-vocab-api.vercel.app/api/words?offset=${page}&limit=20&level=${level}`)
                 .then(async (res) => {
-                    return res.data;
-                })
-                .then(async (res) => {
-                    for (const r of res.words) {
-                        const param = {source: 'en', target: 'ko', text: r.meaning}
-                        const translate = await ENG_KOR_TRANSLATE(param);
-                        if (translate.error) {
-                            throw new Error('TRANSLATION ERROR');
-                        } else {
-                            r.translation = translate?.translatedText;
-                        }
+                    console.log('rr', res)
+                    if (res.status === 200) {
+                        response = res.data;
+                        onSuccess();
+                        return res.data;
+                    } else {
+                        onFail();
                     }
-                    return res
-                }).then((res) => {
-                    response = res;
                 })
+                // .then(async (res) => {
+                //     for (const r of res.words) {
+                //         const param = {source: 'en', target: 'ko', text: r.meaning}
+                //         const translate = await ENG_KOR_TRANSLATE(param);
+                //         if (translate.error) {
+                //             throw new Error('TRANSLATION ERROR');
+                //         } else {
+                //             r.translation = translate?.translatedText;
+                //         }
+                //     }
+                //     return res
+                // }).then((res) => {
+                //     response = res;
+                // })
             return response;
         } catch (e) {
             return rejectWithValue(e);
@@ -63,22 +71,19 @@ export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({le
     }
 })
 
-export const fetchEngKorTranslation = createAsyncThunk('translation/fetch', async({ resBeforeTranslation: {} }, {rejectWithValue: rejectWithValue}) => {
-    console.log('lll')
+export const fetchEngKorTranslation = createAsyncThunk('translation/fetch', async({ resBeforeTranslation: {}, dataType: string }, {rejectWithValue: rejectWithValue}) => {
     try {
         const param = {source: 'en', target: 'ko', text: resBeforeTranslation.meaning};
-        console.log('param', param)
-
         const translate = await ENG_KOR_TRANSLATE(param);
-        // let transResponse
+        let transResponse
         if (translate.error) {
             throw new Error('TRANSLATION ERROR');
         } else {
             resBeforeTranslation.translation = translate?.translatedText
+            transResponse = {data: resBeforeTranslation.translation, type: dataType}
         }
-        return resBeforeTranslation;
+        return transResponse;
     } catch (e) {
-        console.log('error', e);
         return rejectWithValue(e);
     }
 })
@@ -95,9 +100,9 @@ export const vocabSlice = createSlice({
     name: 'vocab',
     initialState,
     reducers: {
-        // setError(state) {
-        //     state.isError = true
-        // }
+        setLoading (state, action: PayloadAction<boolean>) {
+            state.loading = action.payload
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -114,27 +119,38 @@ export const vocabSlice = createSlice({
                 state.isError.state = true
                 state.isError.content = action.payload.message
             })
+
             .addCase(fetchVocabByLevel.pending, (state, action) => {
                 state.loading = true
             })
             .addCase(fetchVocabByLevel.fulfilled, (state, action) => {
-                state.levelWord = action.payload.words
-                state.levelWordTotal = action.payload.total
+                state.levelWord = action.payload?.words
+                state.levelWordTotal = action.payload?.total
                 state.loading = false
             })
+            .addCase(fetchVocabByLevel.rejected, (state, action) => {
+                state.loading = false
+                state.isError.state = true
+                state.isError.content = action.payload.message
+            })
+
             .addCase(fetchEngKorTranslation.pending, (state, action) => {
-                console.log('pending')
+                state.loading = true
             })
             .addCase(fetchEngKorTranslation.rejected, (state, action) => {
-                console.log('rejected')
+                state.loading = false
+                state.isError.state = true
+                state.isError.content = action.payload.message
             })
             .addCase(fetchEngKorTranslation.fulfilled, (state, action) => {
-                console.log('fulfilled')
+                state.loading = false
+                state.isError.state = false
+                console.log(state)
             })
     }
 })
 
 // Action creators are generated for each case reducer function
-// export const {setError} = vocabSlice.actions
+export const {setLoading} = vocabSlice.actions
 
 export const vocabReducer = vocabSlice.reducer

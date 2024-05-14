@@ -1,5 +1,5 @@
 import styles from './layout.module.css'
-import HomeButton from "@/app/components/HomeButton/homeButton";
+import HomeButton from "@/components/HomeButton/homeButton";
 export default function pageLayout({
                                        children, // will be a page or nested layout
                                    }: {

@@ -3,9 +3,8 @@
 import styles from "./page.module.css";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchRandomVocab, fetchVocab, vocabReducer, vocabSlice} from "../../store/vocabSlice";
+import {fetchRandomVocab, vocabReducer, vocabSlice} from "../../store/vocabSlice";
 import {useRouter} from 'next/navigation'
-import Loading from "@/app/components/Loading/loading";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -21,7 +20,6 @@ export default function Home() {
     }
     const onFail = () => {
         console.log('on fail')
-
     }
     useEffect(() => {
         localStorage.clear();
@@ -45,7 +43,7 @@ export default function Home() {
                             <div className='ft-jp fs-32 bold'>{randomWord?.word}</div>
                         </div>
                         <div className={'ft_999 fs-20'}>({randomWord?.furigana} {randomWord?.romaji})</div>
-                        <div className={'mg-top-10 fs-22'}>{randomWord?.meaning}</div>
+                        <div className={'mg-top-10 fs-20'}>{randomWord?.meaning}</div>
                         <div className={'fs-16'}>{randomWord?.translation}</div>
                     </div>
                 </div>
