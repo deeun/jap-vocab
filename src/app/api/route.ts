@@ -5,7 +5,7 @@ let data
 let isError = false
 
 export async function ENG_KOR_TRANSLATE(req: any) {
-    await fetch('http://localhost:3000/v1/translation', {
+    const res = await fetch('http://localhost:3000/v1/translation', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -19,6 +19,7 @@ export async function ENG_KOR_TRANSLATE(req: any) {
             isError = true
         } else {
             isError = false
+            return res;
         }
     })
 

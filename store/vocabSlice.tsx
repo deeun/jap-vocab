@@ -1,16 +1,8 @@
 // @ts-ignore
 
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {axiosInstance, axiosPapago} from "../plugins/axios";
-import axios from "axios";
+import {axiosInstance} from "../plugins/axios";
 import {ENG_KOR_TRANSLATE} from '@/app/api/route';
-import {useDispatch} from "react-redux";
-import {setError} from "./errorSlice";
-
-// export interface Vocab {
-//     randomWord: [],
-//     error: {}
-// }
 
 export const fetchRandomVocab = createAsyncThunk('vocabRandom/fetch', async (arg, {rejectWithValue: rejectWithValue}) => {
     try {
@@ -25,8 +17,7 @@ export const fetchRandomVocab = createAsyncThunk('vocabRandom/fetch', async (arg
                 }
             })
             .then(async (res) => {
-                const param = {source: 'en', target: 'ko', text: res.meaning}
-                arg.onSuccess();
+                arg.onSuccess(res.meaning);
                 response = res
             })
         return response
@@ -39,31 +30,16 @@ export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({le
     if (level !== undefined) {
         try {
             let response
-            await axiosInstance.get(`https://jlpt-vocab-api.vercel.app/api/words?offset=${page}&limit=20&level=${level}`)
+            await axiosInstance.get(`https://jlpt-vocab-api.vercel.app/api/words?offset=${page}&limit=15&level=${level}`)
                 .then(async (res) => {
-                    console.log('rr', res)
                     if (res.status === 200) {
                         response = res.data;
-                        onSuccess();
+                        onSuccess(res.data.words);
                         return res.data;
                     } else {
                         onFail();
                     }
                 })
-                // .then(async (res) => {
-                //     for (const r of res.words) {
-                //         const param = {source: 'en', target: 'ko', text: r.meaning}
-                //         const translate = await ENG_KOR_TRANSLATE(param);
-                //         if (translate.error) {
-                //             throw new Error('TRANSLATION ERROR');
-                //         } else {
-                //             r.translation = translate?.translatedText;
-                //         }
-                //     }
-                //     return res
-                // }).then((res) => {
-                //     response = res;
-                // })
             return response;
         } catch (e) {
             return rejectWithValue(e);
@@ -71,19 +47,42 @@ export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({le
     }
 })
 
-export const fetchEngKorTranslation = createAsyncThunk('translation/fetch', async({ resBeforeTranslation: {}, dataType: string }, {rejectWithValue: rejectWithValue}) => {
+export const fetchEngKorTranslation = createAsyncThunk('translation/fetch', async(arg, {rejectWithValue: rejectWithValue}) => {
+    console.log('??')
     try {
-        const param = {source: 'en', target: 'ko', text: resBeforeTranslation.meaning};
-        const translate = await ENG_KOR_TRANSLATE(param);
         let transResponse
-        if (translate.error) {
-            throw new Error('TRANSLATION ERROR');
+        const param = {source: 'en', target: 'ko', text: ''};
+        if (arg?.dataType === 'word') {
+            param.text = arg?.meaning;
+            const translate = await ENG_KOR_TRANSLATE(param);
+            if (translate.error) {
+                throw new Error('TRANSLATION ERROR');
+            } else {
+                transResponse = { result: translate?.translatedText, type: 'word' }
+                return transResponse;
+            }
         } else {
-            resBeforeTranslation.translation = translate?.translatedText
-            transResponse = {data: resBeforeTranslation.translation, type: dataType}
+            let resultArr: any[] = [];
+            let result
+            arg?.meaning?.forEach(async(data) => {
+                param.text = data.meaning;
+                const translate = await ENG_KOR_TRANSLATE(param);
+                if (translate.error) {
+                    throw new Error('TRANSLATION ERROR');
+                } else {
+                    const newData = { ...data, translate: translate?.translatedText}
+                    const two = JSON.stringify(newData)
+                    resultArr = [...resultArr, two]
+                }
+                if (resultArr?.length === arg?.meaning?.length) {
+                    result = resultArr.map(r => JSON.parse(r))
+                    transResponse = { result: result, type: 'array'}
+                    return transResponse;
+                }
+            })
         }
-        return transResponse;
     } catch (e) {
+        console.log('catch', e)
         return rejectWithValue(e);
     }
 })
@@ -93,6 +92,7 @@ const initialState = {
     levelWord: [],
     levelWordTotal: 1,
     loading: false,
+    translation: {},
     isError: { state: false, content: '' }
 }
 
@@ -106,6 +106,7 @@ export const vocabSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+        // 랜덤 단어 (메인페이지)
             .addCase(fetchRandomVocab.pending, (state, action) => {
                 state.loading = true
             })
@@ -120,13 +121,14 @@ export const vocabSlice = createSlice({
                 state.isError.content = action.payload.message
             })
 
+            // 레벨별 단어
             .addCase(fetchVocabByLevel.pending, (state, action) => {
                 state.loading = true
             })
             .addCase(fetchVocabByLevel.fulfilled, (state, action) => {
+                state.loading = false
                 state.levelWord = action.payload?.words
                 state.levelWordTotal = action.payload?.total
-                state.loading = false
             })
             .addCase(fetchVocabByLevel.rejected, (state, action) => {
                 state.loading = false
@@ -134,6 +136,7 @@ export const vocabSlice = createSlice({
                 state.isError.content = action.payload.message
             })
 
+            // 영 ↔️ 일 번역
             .addCase(fetchEngKorTranslation.pending, (state, action) => {
                 state.loading = true
             })
@@ -145,7 +148,13 @@ export const vocabSlice = createSlice({
             .addCase(fetchEngKorTranslation.fulfilled, (state, action) => {
                 state.loading = false
                 state.isError.state = false
-                console.log(state)
+                console.log(action.payload)
+                if (action.payload.type === 'word') {
+                    state.randomWord.translation = action.payload.result
+                } else {
+                    console.log('jjj', action.payload)
+                    state.levelWord = action.payload.result
+                }
             })
     }
 })

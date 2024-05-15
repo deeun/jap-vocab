@@ -3,20 +3,20 @@
 import styles from "./page.module.css";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchRandomVocab, vocabReducer, vocabSlice} from "../../store/vocabSlice";
+import {fetchEngKorTranslation, fetchRandomVocab, vocabReducer, vocabSlice} from "../../store/vocabSlice";
 import {useRouter} from 'next/navigation'
 
 export default function Home() {
     const dispatch = useDispatch();
     const randomWord = useSelector(state => state.vocabReducer.randomWord)
-    const loading = useSelector(state => state.vocabReducer.loading)
     const router = useRouter();
     const setPage = (tab: string) => {
         router.push(`/${tab}`)
     }
     const [levelShow, setLevelShow] = useState(false);
-    const onSuccess = () => {
-        console.log('on success')
+    const onSuccess = (meaning: string) => {
+        const args = {meaning, dataType: 'word'};
+        dispatch(fetchEngKorTranslation(args));
     }
     const onFail = () => {
         console.log('on fail')
@@ -44,7 +44,7 @@ export default function Home() {
                         </div>
                         <div className={'ft_999 fs-20'}>({randomWord?.furigana} {randomWord?.romaji})</div>
                         <div className={'mg-top-10 fs-20'}>{randomWord?.meaning}</div>
-                        <div className={'fs-16'}>{randomWord?.translation}</div>
+                        <div className={'fs-16 mg-top-5'}>{randomWord?.translation}</div>
                     </div>
                 </div>
                 <div className={`${styles.main__card} ${styles.bg__one} bold`} onClick={() => setPage('kana')}>🔍 히라가나 /

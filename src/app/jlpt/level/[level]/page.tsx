@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchVocabByLevel, setLoading} from "../../../../../store/vocabSlice";
+import {fetchVocabByLevel, fetchEngKorTranslation} from "../../../../../store/vocabSlice";
 import {useRouter} from "next/navigation";
 import styles from './page.module.css'
 
@@ -14,8 +14,9 @@ function Page({params}: { params: { slug: string } }) {
     const [level, setLevel] = useState<number>();
     const [page, setPage] = useState<number>(0);
 
-    const onSuccess = () => {
-        console.log('sccess')
+    const onSuccess = (data) => {
+        const args = {meaning: data, dataType: 'array'};
+        dispatch(fetchEngKorTranslation(args));
     }
     const onFail = () => {
 
