@@ -10,7 +10,7 @@
 }
 .bg__two {
     /*background-color: #378CE7;*/
-    background-color: rgba(77, 150, 255, 0.8);
+    background-color: rgba(77, 150, 255, 0.6);
 }
 .main__card {
     margin-top: 20px;
@@ -48,6 +48,25 @@
     margin-left: 10px;
 }
 
+.main__mobile_recommended__wrap {
+    display: block;
+    position: absolute;
+    bottom: 40px;
+}
+.main__mobile_recommended {
+    padding: 20px 20px;
+    width: 320px;
+    background-color: #FFE1E1;
+    border-radius: 16px;
+}
+.main__mobile_recommended_balloon {
+    width: 0;
+    height: 0;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #FFE1E1;;
+    position: relative;
+    left: 20px;
+}
 
 /* CSS */
 .button_52 {
@@ -80,4 +99,10 @@
 .button_52:hover:after {
     top: 0px;
     left: 0px;
+}
+
+@media (max-width: 480px) {
+    .main__mobile_recommended__wrap {
+        display: none;
+    }
 }

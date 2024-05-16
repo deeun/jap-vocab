@@ -54,6 +54,12 @@ export default function Home() {
                     등급별
                     어휘
                 </div>
+                <div className={styles.main__mobile_recommended__wrap}>
+                    <div className={`bold ${styles.main__mobile_recommended}`}>
+                        📢📢<br/> 일본어 하나둘셋은 모바일로 접속했을 때<br/> 더 편하게 이용하실 수 있어요 !
+                    </div>
+                    <div className={styles.main__mobile_recommended_balloon}></div>
+                </div>
             </div>
         </>
     );

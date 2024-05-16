@@ -103,7 +103,7 @@
     .kana__all_word {
         font-family: Pretendard;
         font-size: 16px;
-        padding: 12px;
+        padding: 9px;
         background-color: rgba(255, 254, 196, 0.8);
         border-radius: 20px;
         min-width: 50px;
@@ -112,7 +112,7 @@
     .kana__all_word__bg_darker {
         font-family: Pretendard;
         font-size: 16px;
-        padding: 12px;
+        padding: 9px;
         background-color: rgba(255, 254, 196, 0.4);
         border-radius: 20px;
         min-width: 50px;
@@ -120,7 +120,8 @@
     }
     .kana__all_word__extra {
         font-size: 16px;
-        padding: 8px;
+        padding: 9px;
+        max-width: 100px;
     }
     .kana__all_word__gray {
         font-size: 16px;

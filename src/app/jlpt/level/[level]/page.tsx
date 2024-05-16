@@ -29,14 +29,16 @@ function Page({params}: { params: { slug: string } }) {
         }
     }
     const clickRightArrow = () => {
-        if (page < Number(totalPageCalc(levelWordsTotal))) {
+        if (Number(page + 1) < totalPageCalc(levelWordsTotal)) {
             setPage(page + 1);
         } else {
             return;
         }
     }
-    const totalPageCalc = (total) => {
-        return (total / 20).toFixed(0) + 1
+    const totalPageCalc = (total: number) => {
+        const totalDivided = (total / 15).toFixed(1)
+        const totalReturn = Number(Number(totalDivided.split('.')[0]) + 1)
+        return totalReturn
     }
     const initialPageSetting = async () => {
         setLevel(params.level.split('N')[1]);
@@ -52,28 +54,32 @@ function Page({params}: { params: { slug: string } }) {
 
     return (
         <div>
-            { totalPageCalc(levelWordsTotal) !== 'NaN1' &&
+            {totalPageCalc(levelWordsTotal) !== 'NaN1' &&
                 <>
-            <div className={styles.level_word__title}>
-                N{level} 단어
-            </div>
-            <div className={styles.level_word__paging_wrap}>
-                <div className={styles.level_word__paging_button} onClick={clickLeftArrow}>◀︎</div>
-                <div>{page + 1} / { totalPageCalc(levelWordsTotal) }</div>
-                <div className={styles.level_word__paging_button} onClick={clickRightArrow}>▶︎</div>
-            </div> </>}
+                    <div className={styles.level_word__title__wrap}>
+                        <div className={`bold ${styles.level_word__title}`}>
+                            {/*N{level} 단어 👀*/}
+                            ✏️ N{level} 단어
+                        </div>
+                        <div className={styles.level_word__paging_wrap}>
+                            <div className={styles.level_word__paging_button} onClick={clickLeftArrow}>◀︎</div>
+                            <div>{page + 1} / {totalPageCalc(levelWordsTotal)}</div>
+                            <div className={styles.level_word__paging_button} onClick={clickRightArrow}>▶︎</div>
+                        </div>
+                    </div>
+                </>}
             {levelWords?.map((word: {}, idx: number) => {
                 return (
                     <div key={idx} className={styles.level_word__wrap}>
                         <div>
-                        <div className={'fx'}>
-                            <div className='ft-jp fs-24 bold'>{word.word}</div>
-                            <div className={'center mg-left-5'}>
-                                <div className={'ft_999 ft-jp mg-right-5'}>{word.furigana}</div>
+                            <div className={'fx'}>
+                                <div className='ft-jp fs-24 bold'>{word.word}</div>
+                                <div className={'center mg-left-5'}>
+                                    <div className={'ft_999 ft-jp mg-right-5'}>{word.furigana}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div className={'fs-14'}>{word.meaning}</div>
-                        <div className={'ft_999 fs-14'}>{word.translation}</div>
+                            <div className={'fs-14'}>{word.meaning}</div>
+                            <div className={'ft_999 fs-14'}>{word.translation}</div>
                         </div>
                     </div>)
             })}

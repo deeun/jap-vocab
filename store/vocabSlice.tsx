@@ -48,7 +48,6 @@ export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({le
 })
 
 export const fetchEngKorTranslation = createAsyncThunk('translation/fetch', async(arg, {rejectWithValue: rejectWithValue}) => {
-    console.log('??')
     try {
         let transResponse
         const param = {source: 'en', target: 'ko', text: ''};
@@ -82,7 +81,6 @@ export const fetchEngKorTranslation = createAsyncThunk('translation/fetch', asyn
             })
         }
     } catch (e) {
-        console.log('catch', e)
         return rejectWithValue(e);
     }
 })
@@ -148,11 +146,9 @@ export const vocabSlice = createSlice({
             .addCase(fetchEngKorTranslation.fulfilled, (state, action) => {
                 state.loading = false
                 state.isError.state = false
-                console.log(action.payload)
-                if (action.payload.type === 'word') {
+                if (action.payload?.type === 'word') {
                     state.randomWord.translation = action.payload.result
                 } else {
-                    console.log('jjj', action.payload)
                     state.levelWord = action.payload.result
                 }
             })

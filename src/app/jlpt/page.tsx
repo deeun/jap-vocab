@@ -9,11 +9,13 @@ function Page() {
     const movePage = (level: string) => {
         router.push(`/jlpt/level/${level}`)
     }
-
+    const notReady = () => {
+        window.alert('준비 중 입니다.')
+    }
     return (
         <div>
             <div className={styles.jlpt__card_section}>
-                <div className={`mg-right-15 ${styles.jlpt__card} ${styles.bg__all} bold`}>전체보기</div>
+                <div className={`mg-right-15 ${styles.jlpt__card} ${styles.bg__all} bold`} onClick={notReady}>전체보기</div>
                 <div className={`${styles.jlpt__card} ${styles.bg__one} bold`} onClick={() => movePage('N1')}>N1 공부하기</div>
             </div>
             <div className={styles.jlpt__card_section}>

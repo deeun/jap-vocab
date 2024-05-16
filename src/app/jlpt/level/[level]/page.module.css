@@ -1,6 +1,15 @@
-.level_word__title {
+.level_word__title__wrap {
     padding: 0 10px 20px 10px;
-    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.level_word__title {
+    font-size: 26px;
+    color: #1A2317;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .level_word__wrap {
@@ -26,6 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-top: 5px;
 }
 .level_word__paging_button {
     width: 24px;
