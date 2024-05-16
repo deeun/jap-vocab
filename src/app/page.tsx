@@ -3,12 +3,13 @@
 import styles from "./page.module.css";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchEngKorTranslation, fetchRandomVocab, vocabReducer, vocabSlice} from "../../store/vocabSlice";
+import {fetchEngKorTranslation, fetchRandomVocab} from "../../store/vocabSlice";
 import {useRouter} from 'next/navigation'
 
 export default function Home() {
     const [isClient, setIsClient] = useState(false)
     const dispatch = useDispatch();
+    // @ts-ignore
     const randomWord = useSelector(state => state.vocabReducer.randomWord)
     const router = useRouter();
     const setPage = (tab: string) => {
@@ -17,9 +18,9 @@ export default function Home() {
     const goDictionary = () => {
         window.open('https://ja.dict.naver.com/');
     }
-    const [levelShow, setLevelShow] = useState(false);
     const onSuccess = (meaning: string) => {
         const args = {meaning, dataType: 'word'};
+        // @ts-ignore
         dispatch(fetchEngKorTranslation(args));
     }
     const onFail = () => {
@@ -29,8 +30,8 @@ export default function Home() {
         localStorage.clear();
     }, []);
     useEffect(() => {
-        setLevelShow(false);
         const args = {onSuccess, onFail}
+        // @ts-ignore
         dispatch(fetchRandomVocab(args))
     }, []);
 
