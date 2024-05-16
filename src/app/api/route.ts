@@ -12,7 +12,7 @@ export async function ENG_KOR_TRANSLATE(req: any, response: any) {
         'Access-Control-Allow-Origin': '*',
     }
     // @ts-ignore
-    const res = await fetch('http://localhost:3000/v1/translation', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/v1/translation`, {
         method: 'POST',
         headers: header,
         body: JSON.stringify(req)
