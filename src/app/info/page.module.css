@@ -1,0 +1,20 @@
+.info__wrap {
+    margin-top: 52px;
+    min-height: calc(100vh - 52px);
+    padding: 20px 15px 80px 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.info__title {
+    font-size: 18px;
+    line-height: 26px;
+}
+
+.info__credit {
+    font-size: 13px;
+}
+.info__credit > * {
+    color: #bcbcbc;
+}

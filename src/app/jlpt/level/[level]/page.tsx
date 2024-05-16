@@ -54,7 +54,7 @@ function Page({params}: { params: { slug: string } }) {
 
     return (
         <div>
-            {totalPageCalc(levelWordsTotal) !== 'NaN1' &&
+            {String(totalPageCalc(levelWordsTotal)) !== 'NaN' &&
                 <>
                     <div className={styles.level_word__title__wrap}>
                         <div className={`bold ${styles.level_word__title}`}>

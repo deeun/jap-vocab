@@ -116,7 +116,7 @@ export const vocabSlice = createSlice({
             .addCase(fetchRandomVocab.rejected, (state, action) => {
                 state.loading = false
                 state.isError.state = true
-                state.isError.content = action.payload.message
+                state.isError.content = action.payload?.message
             })
 
             // 레벨별 단어
@@ -131,7 +131,7 @@ export const vocabSlice = createSlice({
             .addCase(fetchVocabByLevel.rejected, (state, action) => {
                 state.loading = false
                 state.isError.state = true
-                state.isError.content = action.payload.message
+                state.isError.content = action.payload?.message
             })
 
             // 영 ↔️ 일 번역
@@ -141,15 +141,15 @@ export const vocabSlice = createSlice({
             .addCase(fetchEngKorTranslation.rejected, (state, action) => {
                 state.loading = false
                 state.isError.state = true
-                state.isError.content = action.payload.message
+                state.isError.content = action.payload?.message
             })
             .addCase(fetchEngKorTranslation.fulfilled, (state, action) => {
                 state.loading = false
                 state.isError.state = false
                 if (action.payload?.type === 'word') {
-                    state.randomWord.translation = action.payload.result
+                    state.randomWord.translation = action.payload?.result
                 } else {
-                    state.levelWord = action.payload.result
+                    state.levelWord = action.payload?.result
                 }
             })
     }

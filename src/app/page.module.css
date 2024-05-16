@@ -12,6 +12,9 @@
     /*background-color: #378CE7;*/
     background-color: rgba(77, 150, 255, 0.6);
 }
+.bg__three {
+    background-color: rgba(255, 174, 174, 0.8);
+}
 .main__card {
     margin-top: 20px;
     padding: 20px;
@@ -52,6 +55,28 @@
     display: block;
     position: absolute;
     bottom: 40px;
+}
+.main__info__wrap {
+    bottom: 10px;
+    width: 100%;
+    max-width: 460px;
+    position: fixed;
+    display: flex;
+    justify-content: right;
+    padding-right: 30px;
+}
+.main__info {
+    /*display: block;*/
+    /*position: relative;*/
+    /*right: 25px;*/
+    /*max-width: 480px;*/
+    /*bottom: 70px;*/
+    /*background-color: red;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*position: relative;*/
+    /*right: 0px;*/
 }
 .main__mobile_recommended {
     padding: 20px 20px;
