@@ -10,10 +10,16 @@
 .info__title {
     font-size: 18px;
     line-height: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
 }
 
 .info__credit {
-    font-size: 13px;
+    font-size: 12px;
+    padding-bottom: 20px;
 }
 .info__credit > * {
     color: #bcbcbc;

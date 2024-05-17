@@ -1,23 +1,27 @@
 import React from 'react';
 import styles from './page.module.css';
 import HomeButton from "@/components/HomeButton/homeButton";
-
-function Page(props) {
+import {version} from "../../../package.json"
+function Page() {
     return (
         <div className={styles.info__wrap}>
             <div>
                 <div className={styles.info__title}>
-                    편리한 JLPT 준비 동반자<br/>
+                    <div>편리한 JLPT 준비 동반자</div>
                     <div className={'bold'}>일본어 하나둘셋 📚</div>
                 </div>
-                <div className={'mg-top-40 fs-14'}>
-                    일본어↔️영어 단어장을 사용하여 만들어졌습니다.<br/><br/>
-                    한국어 풀이는 번역기를 거쳐서 나오는거라<br/> 조금 어색할거에요 🥹 <br/><br/>
-                    영어도 공부하고 일석이조~~ ^^!
+                <div className={'mg-top-40 fs-14 center'}>
+                    <div style={{textAlign: 'center'}}>
+                        <div>일본어↔️영어 단어장으로 만들어졌습니다.</div>
+                        <div className={'mg-top-10'}>한국어 풀이는 번역기를 거쳐서 나오는거라</div>
+                        <div>조금 어색할거에요 🥹</div>
+                        <div className={'mg-top-20'}>영어도 공부하고 일석이조~~ ^^!</div>
+                    </div>
                 </div>
             </div>
             <div className={styles.info__credit}>
-                <div>
+                <div>일본어하나둘셋 v{version}</div>
+                <div className={'mg-top-10'}>
                     <div>만든이 |</div>
                     <div>디언 (https://github.com/deeun)</div>
                 </div>
