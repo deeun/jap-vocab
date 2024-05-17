@@ -7,7 +7,8 @@ function Page() {
         <div className={styles.info__wrap}>
             <div>
                 <div className={styles.info__title}>
-                    <div>편리한 JLPT 준비 동반자</div>
+                    <img src={'/img/bear.jpeg'} alt={''} width={150}/>
+                    <div className={'fs-16'}>JLPT 준비 동반자 이랏샤이마세 ~</div>
                     <div className={'bold'}>일본어 하나둘셋 📚</div>
                 </div>
                 <div className={'mg-top-40 fs-14 center'}>
@@ -15,12 +16,11 @@ function Page() {
                         <div>일본어↔️영어 단어장으로 만들어졌습니다.</div>
                         <div className={'mg-top-10'}>한국어 풀이는 번역기를 거쳐서 나오는거라</div>
                         <div>조금 어색할거에요 🥹</div>
-                        <div className={'mg-top-20'}>영어도 공부하고 일석이조~~ ^^!</div>
+                        <div className={'mg-top-20'}>영어도 공부하고 일석이조라고 생각하기 ^^!</div>
                     </div>
                 </div>
             </div>
             <div className={styles.info__credit}>
-                <div>일본어하나둘셋 v{version}</div>
                 <div className={'mg-top-10'}>
                     <div>만든이 |</div>
                     <div>디언 (https://github.com/deeun)</div>
@@ -33,6 +33,7 @@ function Page() {
                     <div>단어장 |</div>
                     <div>https://jlpt-vocab-api.vercel.app</div>
                 </div>
+                <div className={styles.info__version}>v{version}</div>
             </div>
             <HomeButton/>
         </div>

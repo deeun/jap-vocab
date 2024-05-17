@@ -19,8 +19,11 @@
 
 .info__credit {
     font-size: 12px;
-    padding-bottom: 20px;
 }
 .info__credit > * {
-    color: #bcbcbc;
+    color: white;
+}
+.info__version {
+    color: #999999 !important;
+    padding-left: 10px;
 }
