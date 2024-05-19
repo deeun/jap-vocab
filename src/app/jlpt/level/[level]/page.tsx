@@ -1,25 +1,25 @@
 'use client'
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchVocabByLevel, fetchEngKorTranslation} from "../../../../../store/vocabSlice";
-import {useRouter} from "next/navigation";
+import {fetchVocabByLevel, fetchEngKorTranslation, setTranslated, setLoading} from "../../../../../store/vocabSlice";
 import styles from './page.module.css'
 
 function Page({params}: { params: { slug: string } }) {
     const dispatch = useDispatch();
-    const router = useRouter();
-    const loading = useSelector(state => state.vocabReducer.loading);
     const levelWords = useSelector(state => state.vocabReducer.levelWord)
     const levelWordsTotal = useSelector(state => state.vocabReducer.levelWordTotal)
     const [level, setLevel] = useState<number>();
     const [page, setPage] = useState<number>(0);
 
     const onSuccess = (data) => {
-        const args = {meaning: data, dataType: 'array'};
-        dispatch(fetchEngKorTranslation(args));
+        const args = {meaning: data, dataType: 'array', getData: getData};
+        dispatch(fetchEngKorTranslation(args))
+    }
+    const getData = (data: any) => {
+        dispatch(setTranslated(data));
+        dispatch(setLoading(false));
     }
     const onFail = () => {
-
     }
     const clickLeftArrow = () => {
         if (page > 0) {
@@ -88,3 +88,7 @@ function Page({params}: { params: { slug: string } }) {
 }
 
 export default Page;
+function setTranslatedData(data: any): any {
+    throw new Error('Function not implemented.');
+}
+

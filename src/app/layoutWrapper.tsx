@@ -13,7 +13,7 @@ import "./styles/font.css";
 function LayoutWrapper({children}: Readonly<{
     children: React.ReactNode;
 }>) {
-    const loading = useSelector(state => state.vocabReducer.loading)
+    const loading = useSelector(state => state.vocabReducer.tLoading)
     const error = useSelector(state => state.vocabReducer.isError)
 
     return (

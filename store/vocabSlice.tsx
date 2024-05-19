@@ -1,5 +1,4 @@
 // @ts-ignore
-
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {axiosInstance} from "../plugins/axios";
 import {ENG_KOR_TRANSLATE} from '@/app/api/route';
@@ -49,7 +48,7 @@ export const fetchVocabByLevel = createAsyncThunk('vocabLevel/fetch', async ({le
 
 export const fetchEngKorTranslation = createAsyncThunk('translation/fetch', async(arg, {rejectWithValue: rejectWithValue}) => {
     try {
-        let transResponse
+        let transResponse = { result: [], type: 'NOT READY' };
         const param = {source: 'en', target: 'ko', text: ''};
         if (arg?.dataType === 'word') {
             param.text = arg?.meaning;
@@ -69,14 +68,15 @@ export const fetchEngKorTranslation = createAsyncThunk('translation/fetch', asyn
                 if (translate.error) {
                     throw new Error('TRANSLATION ERROR');
                 } else {
-                    const newData = { ...data, translate: translate?.translatedText}
+                    const newData = { ...data, translation: translate?.translatedText}
                     const two = JSON.stringify(newData)
                     resultArr = [...resultArr, two]
                 }
                 if (resultArr?.length === arg?.meaning?.length) {
                     result = resultArr.map(r => JSON.parse(r))
-                    transResponse = { result: result, type: 'array'}
-                    return transResponse;
+                    // transResponse = { result: result, type: 'array'}
+                    arg?.getData(result);
+                    // return transResponse;
                 }
             })
         }
@@ -90,6 +90,7 @@ const initialState = {
     levelWord: [],
     levelWordTotal: 1,
     loading: false,
+    tLoading: true,
     translation: {},
     isError: { state: false, content: '' }
 }
@@ -99,8 +100,11 @@ export const vocabSlice = createSlice({
     initialState,
     reducers: {
         setLoading (state, action: PayloadAction<boolean>) {
-            state.loading = action.payload
+            state.tLoading = action.payload
         },
+        setTranslated (state, action: any) {
+            state.levelWord = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -136,26 +140,26 @@ export const vocabSlice = createSlice({
 
             // 영 ↔️ 일 번역
             .addCase(fetchEngKorTranslation.pending, (state, action) => {
-                state.loading = true
+                state.tLoading = true
             })
             .addCase(fetchEngKorTranslation.rejected, (state, action) => {
-                state.loading = false
+                state.tLoading = false
                 state.isError.state = true
                 state.isError.content = action.payload?.message
             })
             .addCase(fetchEngKorTranslation.fulfilled, (state, action) => {
-                state.loading = false
+                state.tLoading = false
                 state.isError.state = false
                 if (action.payload?.type === 'word') {
                     state.randomWord.translation = action.payload?.result
                 } else {
-                    state.levelWord = action.payload?.result
+                    state.tLoading = true
                 }
             })
     }
 })
 
 // Action creators are generated for each case reducer function
-export const {setLoading} = vocabSlice.actions
+export const {setLoading, setTranslated} = vocabSlice.actions
 
 export const vocabReducer = vocabSlice.reducer

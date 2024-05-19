@@ -25,10 +25,10 @@ function Page() {
                     <div>만든이 |</div>
                     <div>디언 (https://github.com/deeun)</div>
                 </div>
-                <div className={'mg-top-5'}>
+                {/* <div className={'mg-top-5'}>
                     <div>영일번역 |</div>
                     <div>네이버 파파고</div>
-                </div>
+                </div> */}
                 <div className={'mg-top-5'}>
                     <div>단어장 |</div>
                     <div>https://jlpt-vocab-api.vercel.app</div>
