@@ -481,37 +481,37 @@ function Page() {
                     </div>
                     <div className={styles.kana__all_wrap}>
                         <div className={styles.kana__all_word}>
-                            <div className={'bold'}>ら ・ ハ</div>
+                            <div className={'bold'}>ら ・ ラ</div>
                             <div className={styles.kana__all_word__gray}>ra</div>
                         </div>
                         <div className={styles.kana__all_word}>
-                            <div className={'bold'}>り ・ ヒ</div>
+                            <div className={'bold'}>り ・ リ</div>
                             <div className={styles.kana__all_word__gray}>ri</div>
                         </div>
                         <div className={styles.kana__all_word}>
-                            <div className={'bold'}>る ・ フ</div>
+                            <div className={'bold'}>る ・ ル</div>
                             <div className={styles.kana__all_word__gray}>ru</div>
                         </div>
                         <div className={styles.kana__all_word}>
-                            <div className={'bold'}>れ ・ ヘ</div>
+                            <div className={'bold'}>れ ・ レ</div>
                             <div className={styles.kana__all_word__gray}>re</div>
                         </div>
                         <div className={styles.kana__all_word}>
-                            <div className={'bold'}>ろ ・ ホ</div>
+                            <div className={'bold'}>ろ ・ ロ</div>
                             <div className={styles.kana__all_word__gray}>ro</div>
                         </div>
                     </div>
                     <div className={styles.kana__all_wrap}>
                         <div className={styles.kana__all_word__bg_darker}>
-                            <div className={'bold'}>わ ・ ハ</div>
+                            <div className={'bold'}>わ ・ ワ</div>
                             <div className={styles.kana__all_word__gray}>wa</div>
                         </div>
                         <div className={styles.kana__all_word__bg_darker}>
-                            <div className={'bold'}>を ・ ヒ</div>
+                            <div className={'bold'}>を ・ ヲ</div>
                             <div className={styles.kana__all_word__gray}>o(wo)</div>
                         </div>
                         <div className={styles.kana__all_word__bg_darker}>
-                            <div className={'bold'}>ん ・ フ</div>
+                            <div className={'bold'}>ん ・ ン</div>
                             <div className={styles.kana__all_word__gray}>n</div>
                         </div>
                     </div>
